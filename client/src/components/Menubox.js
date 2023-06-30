@@ -17,9 +17,13 @@ import {
   ListItemText,
   Typography,
   styled,
-  useTheme,
 } from "@mui/material";
 import { useState } from "react";
+
+/* 
+TODO
+  Link dark mode to all theme
+*/
 
 const DrawerHeader = styled("div")(({ theme, open }) => ({
   display: "flex",
@@ -30,9 +34,10 @@ const DrawerHeader = styled("div")(({ theme, open }) => ({
 }));
 
 export default function Menubox() {
-  const theme = useTheme();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [viewMode, setViewMode] = useState("Dark");
+
+  const toggleDrawer = () => setOpenDrawer(!openDrawer);
 
   const toggleViewMode = () =>
     setViewMode(viewMode === "Dark" ? "Light" : "Dark");
@@ -45,11 +50,7 @@ export default function Menubox() {
         gap: "5px",
       }}
     >
-      <IconButton
-        onClick={() => setOpenDrawer(true)}
-        aria-label="menu"
-        size="medium"
-      >
+      <IconButton onClick={toggleDrawer} aria-label="menu" size="medium">
         <Menu fontSize="inherit" sx={{ color: "white" }} />
       </IconButton>
       <Typography>Dashboard</Typography>
