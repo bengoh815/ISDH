@@ -1,47 +1,7 @@
-import {
-  DarkMode,
-  Dashboard,
-  Description,
-  LightMode,
-  Menu,
-} from "@mui/icons-material";
-import {
-  Box,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  styled,
-} from "@mui/material";
-import { useState } from "react";
+import { Menu } from "@mui/icons-material";
+import { Box, IconButton, Typography } from "@mui/material";
 
-/* 
-TODO
-  Link dark mode to all theme
-*/
-
-const DrawerHeader = styled("div")(({ theme, open }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 3),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-
-export default function Menubox() {
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [viewMode, setViewMode] = useState("Dark");
-
-  const toggleDrawer = () => setOpenDrawer(!openDrawer);
-
-  const toggleViewMode = () =>
-    setViewMode(viewMode === "Dark" ? "Light" : "Dark");
-
+export default function Menubox({ toggleDrawer }) {
   return (
     <Box
       sx={{
@@ -54,86 +14,6 @@ export default function Menubox() {
         <Menu fontSize="inherit" sx={{ color: "white" }} />
       </IconButton>
       <Typography>Dashboard</Typography>
-      <Drawer
-        anchor="left"
-        open={openDrawer}
-        onClose={() => setOpenDrawer(false)}
-      >
-        <DrawerHeader></DrawerHeader>
-        <Divider />
-        <List>
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: openDrawer ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: openDrawer ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <Dashboard />
-              </ListItemIcon>
-              <ListItemText
-                primary="Dashboard"
-                sx={{ opacity: openDrawer ? 1 : 0 }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: openDrawer ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: openDrawer ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <Description />
-              </ListItemIcon>
-              <ListItemText
-                primary="Documents"
-                sx={{ opacity: openDrawer ? 1 : 0 }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: openDrawer ? "initial" : "center",
-                px: 2.5,
-              }}
-              onClick={toggleViewMode}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: openDrawer ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                {viewMode === "Dark" ? <DarkMode /> : <LightMode />}
-              </ListItemIcon>
-              <ListItemText
-                primary={viewMode + " mode"}
-                sx={{ opacity: openDrawer ? 1 : 0 }}
-              />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </Drawer>
     </Box>
   );
 }

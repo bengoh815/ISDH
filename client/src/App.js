@@ -12,13 +12,22 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import GoogleSignIn from "./components/GoogleSignIn";
 import { Box, ThemeProvider } from "@mui/material";
+import SideNav from "./components/SideNav";
+import { useState } from "react";
 
 function App() {
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const toggleDrawer = () => {
+    setOpenDrawer(!openDrawer);
+  };
+
   return (
     <>
       <GoogleOAuthProvider clientId={process.env.REACT_APP_G_CLIENT_ID}>
         {/* <ThemeProvider> */}
-        <Navbar />
+        <Navbar toggleDrawer={toggleDrawer} />
+        <SideNav openDrawer={openDrawer} />
         {/* rest of the app */}
         {/* </ThemeProvider> */}
       </GoogleOAuthProvider>

@@ -16,12 +16,17 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
 }));
 
-export default function Navbar() {
+export default function Navbar({ toggleDrawer }) {
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Menubox />
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Menubox toggleDrawer={toggleDrawer} />
           <Typography>Tally-ho</Typography>
           <Userbox />
         </Toolbar>
