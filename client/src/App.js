@@ -11,15 +11,15 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import GoogleSignIn from "./components/GoogleSignIn";
-import { ThemeProvider } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 
 function App() {
   return (
     <>
       <GoogleOAuthProvider clientId={process.env.REACT_APP_G_CLIENT_ID}>
         {/* <ThemeProvider> */}
-        {/* rest of the app */}
         <Navbar />
+        {/* rest of the app */}
         {/* </ThemeProvider> */}
       </GoogleOAuthProvider>
     </>

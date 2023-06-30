@@ -72,6 +72,7 @@ export default function Userbox() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <NotificationCard></NotificationCard>
+        <NotificationCard></NotificationCard>
       </Popover>
       <Menu
         id="account-menu"

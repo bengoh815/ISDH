@@ -1,41 +1,23 @@
 import { NavLink } from "react-router-dom";
 
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Toolbar,
-  Typography,
-  styled,
-} from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { AppBar, Toolbar, Typography, styled, useTheme } from "@mui/material";
 import Userbox from "./Userbox";
-
-const MenuBox = styled(Box)({
-  display: "flex",
-  alignItems: "center",
-  gap: "5px",
-});
+import Menubox from "./Menubox";
 
 /*
 TODO 
   RESPONSIVE DESIGN
     make sure Dashboard and bell dissappear
+  display userbox only when logged in
 */
 
 export default function Navbar() {
   return (
     <>
-      <AppBar position="sticky">
+      <AppBar>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <MenuBox>
-            <IconButton aria-label="menu" size="medium">
-              <Menu fontSize="inherit" sx={{ color: "white" }} />
-            </IconButton>
-            <Typography>Dashboard</Typography>
-          </MenuBox>
+          <Menubox />
           <Typography>Tally-ho</Typography>
-          {/* TODO display only when logged in */}
           <Userbox />
         </Toolbar>
       </AppBar>
