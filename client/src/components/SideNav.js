@@ -15,6 +15,7 @@ import {
   styled,
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
+import SpacingHeader from "./SpacingHeader";
 
 /* 
 TODO
@@ -61,11 +62,6 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-
 export default function SideNav({ openDrawer }) {
   const [viewMode, setViewMode] = useState("Dark");
 
@@ -74,7 +70,7 @@ export default function SideNav({ openDrawer }) {
 
   return (
     <Drawer variant="permanent" open={openDrawer}>
-      <DrawerHeader></DrawerHeader>
+      <SpacingHeader />
       <Divider />
       <List>
         <ListItem disablePadding sx={{ display: "block" }}>

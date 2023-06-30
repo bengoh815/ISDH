@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-import { Toolbar, Typography, styled } from "@mui/material";
+import { AppBar, Toolbar, Typography, styled } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import Userbox from "./Userbox";
 import Menubox from "./Menubox";
@@ -12,14 +12,14 @@ TODO
   display userbox only when logged in
 */
 
-const AppBar = styled(MuiAppBar)(({ theme }) => ({
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
 }));
 
 export default function Navbar({ toggleDrawer }) {
   return (
     <>
-      <AppBar position="fixed">
+      <StyledAppBar position="fixed">
         <Toolbar
           sx={{
             display: "flex",
@@ -30,7 +30,7 @@ export default function Navbar({ toggleDrawer }) {
           <Typography>Tally-ho</Typography>
           <Userbox />
         </Toolbar>
-      </AppBar>
+      </StyledAppBar>
     </>
   );
 }

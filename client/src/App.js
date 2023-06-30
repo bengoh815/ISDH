@@ -11,9 +11,10 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import GoogleSignIn from "./components/GoogleSignIn";
-import { Box, ThemeProvider } from "@mui/material";
+import { Box, Stack, ThemeProvider } from "@mui/material";
 import SideNav from "./components/SideNav";
 import { useState } from "react";
+import Mainbox from "./components/Mainbox";
 
 function App() {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -27,7 +28,10 @@ function App() {
       <GoogleOAuthProvider clientId={process.env.REACT_APP_G_CLIENT_ID}>
         {/* <ThemeProvider> */}
         <Navbar toggleDrawer={toggleDrawer} />
-        <SideNav openDrawer={openDrawer} />
+        <Stack direction="row" spacing={2} justifyContent="space-between">
+          <SideNav openDrawer={openDrawer} />
+          <Mainbox />
+        </Stack>
         {/* rest of the app */}
         {/* </ThemeProvider> */}
       </GoogleOAuthProvider>
