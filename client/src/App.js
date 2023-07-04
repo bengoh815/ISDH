@@ -35,6 +35,7 @@ import Mainbox from "./components/Mainbox";
 import Userbox from "./components/Userbox";
 import { LockOutlined } from "@mui/icons-material";
 import SpacingHeader from "./components/SpacingHeader";
+import Dashboard from "./components/Dashboard";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -66,8 +67,7 @@ function App() {
           </Toolbar>
         </StyledAppBar>
         <SpacingHeader />
-        <Signup />
-        <Login />
+        <Dashboard />
         {/* </ThemeProvider> */}
       </GoogleOAuthProvider>
     </>

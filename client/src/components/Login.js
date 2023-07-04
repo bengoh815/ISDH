@@ -22,6 +22,9 @@ import GoogleSignIn from "./GoogleSignIn";
 TODO
   Fix google button width
   submit functionality
+  password requirements state clearly
+  link to sign up
+  forget password
 */
 
 export default function Login() {
