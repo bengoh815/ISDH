@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+import axios from "axios";
+
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -30,7 +32,7 @@ import {
   useTheme,
 } from "@mui/material";
 import SideNav from "./components/SideNav";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Mainbox from "./components/Mainbox";
 import Userbox from "./components/Userbox";
 import { LockOutlined } from "@mui/icons-material";
@@ -48,6 +50,16 @@ function App() {
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
+
+  const check = () => {
+    axios.get("http://localhost:8000/").then((res) => {
+      console.log(res);
+    });
+  };
+
+  useEffect(() => {
+    check();
+  });
 
   return (
     <>

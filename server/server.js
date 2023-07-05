@@ -3,6 +3,7 @@ const PORT = process.env.SERVER_PORT;
 
 // app
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
 
@@ -10,6 +11,7 @@ const app = express();
 const userRoutes = require("./routes/users");
 
 // middlewares
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 
 // routes
