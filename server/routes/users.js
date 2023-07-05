@@ -1,7 +1,11 @@
 const express = require("express");
 
 // controllers
-const {} = require("../controllers/userController");
+const {
+  loginUser,
+  signupUser,
+  googleSigninUser,
+} = require("../controllers/userController");
 
 /* 
 user routes
