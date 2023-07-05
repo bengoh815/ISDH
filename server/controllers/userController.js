@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
+const { default: jwtDecode } = require("jwt-decode");
+
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
@@ -37,10 +39,14 @@ const signupUser = async (req, res) => {
 
 // google signin user
 const googleSigninUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { googleToken } = req.body;
+  const decoded = jwtDecode(googleToken);
+  const name = { firstName: decoded.given_name, lastName: decoded.family_name };
+  const email = decoded.email;
+  const verified = decoded.email_verified;
 
   try {
-    const user = await User.signup(email, password);
+    const user = await User.googleSignin(name, email, verified);
 
     // create token
     const token = createToken(user._id);

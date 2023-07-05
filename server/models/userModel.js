@@ -69,4 +69,16 @@ userSchema.statics.signup = async function (name, email, password) {
   return user;
 };
 
+userSchema.statics.googleSignin = async function (name, email, verified) {
+  // sign up if does not exist else log in
+  const user = await this.findOne({ email });
+  if (!user) {
+    // sign up
+    const newUser = await this.create({ name, email, verified });
+    return newUser;
+  }
+
+  return user;
+};
+
 module.exports = mongoose.model("User", userSchema);
