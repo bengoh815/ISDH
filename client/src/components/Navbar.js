@@ -35,6 +35,21 @@ export default function Navbar({ toggleDrawer }) {
   );
 }
 
+// when no user
+// const smtgLikeThis = (
+//   <StyledAppBar position="fixed">
+//     <Toolbar
+//       sx={{
+//         display: "flex",
+//         justifyContent: "space-between",
+//       }}
+//     >
+//       <Box>empty</Box>
+//       <Typography>Tally-ho</Typography>
+//     </Toolbar>
+//   </StyledAppBar>
+// );
+
 // const old = (
 //   <AppBar position="sticky">
 //     <Toolbar>

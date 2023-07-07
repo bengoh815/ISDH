@@ -17,6 +17,8 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import GoogleSignIn from "./GoogleSignIn";
+import SpacingHeader from "./SpacingHeader";
+import { Link } from "react-router-dom";
 
 /*
 TODO
@@ -36,13 +38,14 @@ export default function Login() {
 
   return (
     <>
+      <SpacingHeader />
       <Box
         sx={{ display: "flex", justifyContent: "center", marginTop: "80px" }}
       >
         <Paper sx={{ width: "40%" }}>
           <Stack
             direction="column"
-            sx={{ alignItems: "center", mt: "10px", mb: "20px" }}
+            sx={{ alignItems: "center", mt: "10px", mb: "20px", gap: "10px" }}
           >
             <Avatar sx={{ bgcolor: "red" }}>
               <LockOutlined />
@@ -90,6 +93,9 @@ export default function Login() {
               sx={{ width: "80%", borderBottomWidth: 2, marginBottom: 3 }}
             />
             <GoogleSignIn />
+            <Typography>
+              Already have an account? <Link to="/signup">Sign up</Link>
+            </Typography>
           </Stack>
         </Paper>
       </Box>

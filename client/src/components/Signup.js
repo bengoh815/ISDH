@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import GoogleSignIn from "./GoogleSignIn";
+import { Link } from "react-router-dom";
 
 /*
 TODO
@@ -99,6 +100,9 @@ export default function Signup() {
               sx={{ width: "80%", borderBottomWidth: 2, marginBottom: 3 }}
             />
             <GoogleSignIn />
+            <Typography>
+              Already have an account? <Link to="/login">Log in</Link>
+            </Typography>
           </Stack>
         </Paper>
       </Box>

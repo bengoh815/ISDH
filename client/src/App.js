@@ -4,7 +4,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import axios from "axios";
 
@@ -32,57 +31,55 @@ import {
   useTheme,
 } from "@mui/material";
 import SideNav from "./components/SideNav";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Mainbox from "./components/Mainbox";
 import Userbox from "./components/Userbox";
 import { LockOutlined } from "@mui/icons-material";
 import SpacingHeader from "./components/SpacingHeader";
 import Dashboard from "./components/Dashboard";
+import { AuthContext } from "./context/AuthContext";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
 }));
 
 function App() {
-  const theme = useTheme();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { user } = useAuthContext();
 
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
 
-  const check = () => {
-    axios.get("http://localhost:8000/").then((res) => {
-      console.log(res);
-    });
-  };
-
-  useEffect(() => {
-    check();
-  });
-
   return (
     <>
-      <GoogleOAuthProvider clientId={process.env.REACT_APP_G_CLIENT_ID}>
-        {/* <ThemeProvider> */}
-        {/* rest of the app */}
-        {/* Leave this for now */}
-        <StyledAppBar position="fixed">
-          <Toolbar
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <Box>empty</Box>
-            <Typography>Tally-ho</Typography>
-          </Toolbar>
-        </StyledAppBar>
-        <SpacingHeader />
-        {/* <Dashboard /> */}
-        <Login />
-        {/* </ThemeProvider> */}
-      </GoogleOAuthProvider>
+      {/* rest of the app */}
+      {/* Leave this for now */}
+
+      {/* <SpacingHeader /> */}
+      {/* <Dashboard /> */}
+      <Router>
+        <Navbar toggleDrawer={toggleDrawer} />
+        <SideNav openDrawer={openDrawer} />
+
+        {/* All other things */}
+
+        <Routes>
+          <Route
+            path="/"
+            element={user ? <Home /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/login"
+            element={!user ? <Login /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/signup"
+            element={!user ? <Signup /> : <Navigate to="/" />}
+          />
+        </Routes>
+      </Router>
     </>
   );
 }
