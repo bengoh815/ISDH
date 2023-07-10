@@ -24,10 +24,9 @@ import { useLogin } from "../hooks/useLogin";
 /*
 TODO
   Fix google button width
-  submit functionality
   password requirements state clearly
-  link to sign up
   forget password
+  handle error
 */
 
 export default function Login() {
@@ -97,6 +96,7 @@ export default function Login() {
                 variant="contained"
                 sx={{ marginTop: 3, marginBottom: 3 }}
                 onClick={handleSubmit}
+                disabled={isLoading}
               >
                 Log in
               </Button>

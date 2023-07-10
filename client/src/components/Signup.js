@@ -24,8 +24,7 @@ import { useSignup } from "../hooks/useSignup";
 /*
 TODO
   Fix google button width
-  submit functionality
-  link to log in
+  handle error
 */
 
 export default function Signup() {
@@ -122,6 +121,7 @@ export default function Signup() {
                 variant="contained"
                 sx={{ marginTop: 3, marginBottom: 3 }}
                 onClick={handleSubmit}
+                disabled={isLoading}
               >
                 Sign up
               </Button>
