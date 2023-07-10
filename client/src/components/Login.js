@@ -19,6 +19,7 @@ import { useState } from "react";
 import GoogleSignIn from "./GoogleSignIn";
 import SpacingHeader from "./SpacingHeader";
 import { Link } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
 
 /*
 TODO
@@ -31,9 +32,17 @@ TODO
 
 export default function Login() {
   const theme = useTheme();
+  const { login, isLoading, error } = useLogin();
+
+  const [form, setForm] = useState({ email: "", password: "" });
+  const handleEmailChange = (e) => setForm({ ...form, email: e.target.value });
+  const handlePasswordChange = (e) =>
+    setForm({ ...form, password: e.target.value });
+  const handleSubmit = async (e) => {
+    await login(form.email, form.password);
+  };
 
   const [showPassword, setShowPassword] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   return (
@@ -56,7 +65,7 @@ export default function Login() {
             <FormGroup sx={{ width: "80%" }}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel>Email Address</InputLabel>
-                <Input></Input>
+                <Input value={form.email} onChange={handleEmailChange} />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="standard-adornment-password">
@@ -77,6 +86,8 @@ export default function Login() {
                     </InputAdornment>
                   }
                   label="Password"
+                  value={form.password}
+                  onChange={handlePasswordChange}
                 />
               </FormControl>
 
@@ -85,6 +96,7 @@ export default function Login() {
                 fullWidth
                 variant="contained"
                 sx={{ marginTop: 3, marginBottom: 3 }}
+                onClick={handleSubmit}
               >
                 Log in
               </Button>

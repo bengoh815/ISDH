@@ -47,7 +47,6 @@ export default function Signup() {
     setForm({ ...form, password: e.target.value });
   const handleSubmit = async (e) => {
     const name = { firstName: form.firstName, lastName: form.lastName };
-    console.log("submitted");
     await signup(name, form.email, form.password);
   };
 
