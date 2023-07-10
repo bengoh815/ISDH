@@ -1,30 +1,31 @@
 import {
+  Box,
+  Paper,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
 import Status from "./Status";
 import { OpenInNew } from "@mui/icons-material";
 
-export default function Dashboard() {
+export default function DocumentTable() {
   return (
-    <>
+    <TableContainer component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Type</TableCell>
             <TableCell>Expiry Date</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell></TableCell>
+            <TableCell sx={{ minWidth: "85px" }}>Status</TableCell>
+            <TableCell>Link</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell>Document</TableCell>
-            <TableCell>Type</TableCell>
+            <TableCell>House Lease</TableCell>
             <TableCell>Expiry Date</TableCell>
             <TableCell>
               <Status />
@@ -35,6 +36,6 @@ export default function Dashboard() {
           </TableRow>
         </TableBody>
       </Table>
-    </>
+    </TableContainer>
   );
 }

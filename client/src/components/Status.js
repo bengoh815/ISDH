@@ -4,7 +4,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 export default function Status() {
-  const [status, setStatus] = React.useState("OK");
+  const [status, setStatus] = React.useState("Okay");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -39,10 +39,8 @@ export default function Status() {
           "aria-labelledby": "status-button",
         }}
       >
-        <MenuItem onClick={() => handleChange("Ok")}>Ok</MenuItem>
-        <MenuItem onClick={() => handleChange("In Progress")}>
-          In Progress
-        </MenuItem>
+        <MenuItem onClick={() => handleChange("Okay")}>Okay</MenuItem>
+        <MenuItem onClick={() => handleChange("Ongoing")}>Ongoing</MenuItem>
         <MenuItem onClick={() => handleChange("Expired")}>Expired</MenuItem>
       </Menu>
     </div>
