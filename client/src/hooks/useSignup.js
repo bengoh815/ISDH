@@ -2,6 +2,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 
+/*
+TODO
+Is error handling for axios correct?
+*/
+
 export const useSignup = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);

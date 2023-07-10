@@ -6,7 +6,6 @@ export default function GoogleSignIn() {
   return (
     <GoogleLogin
       onSuccess={(credentialResponse) => {
-        console.log(credentialResponse);
         googleLogin(credentialResponse.credential);
       }}
       onError={() => {

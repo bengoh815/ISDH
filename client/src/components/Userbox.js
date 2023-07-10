@@ -14,14 +14,15 @@ import {
 import { Logout, Notifications, Settings } from "@mui/icons-material";
 import NotificationCard from "./NotificationCard";
 import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 /*
 TODO
   badgeContent is dynamic
-  avatar is dynamic
 */
 
 export default function Userbox() {
+  const { user } = useAuthContext();
   const { logout } = useLogout();
 
   const [notifAnchor, setNotifAnchor] = useState(null);
@@ -67,7 +68,9 @@ export default function Userbox() {
           size="small"
           sx={{ ml: 2 }}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>B</Avatar>
+          <Avatar sx={{ width: 32, height: 32 }}>
+            {user.email[0].toUpperCase()}
+          </Avatar>
         </IconButton>
       </Tooltip>
       <Popover

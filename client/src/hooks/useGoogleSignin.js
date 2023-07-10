@@ -2,6 +2,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 
+/*
+TODO
+Is error handling for axios correct?
+isLoading and error necessary? 
+*/
+
 export const useGoogleSignin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
