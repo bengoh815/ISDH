@@ -18,7 +18,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.status(200).json("receiving loud and clear");
 });
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)

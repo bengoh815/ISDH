@@ -18,6 +18,8 @@ import {
 import { useState } from "react";
 import GoogleSignIn from "./GoogleSignIn";
 import { Link } from "react-router-dom";
+import SpacingHeader from "./SpacingHeader";
+import { useSignup } from "../hooks/useSignup";
 
 /*
 TODO
@@ -28,20 +30,40 @@ TODO
 
 export default function Signup() {
   const theme = useTheme();
+  const { signup, isLoading, error } = useSignup();
+
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const handleFirstnameChange = (e) =>
+    setForm({ ...form, firstName: e.target.value });
+  const handleLastnameChange = (e) =>
+    setForm({ ...form, lastName: e.target.value });
+  const handleEmailChange = (e) => setForm({ ...form, email: e.target.value });
+  const handlePasswordChange = (e) =>
+    setForm({ ...form, password: e.target.value });
+  const handleSubmit = async (e) => {
+    const name = { firstName: form.firstName, lastName: form.lastName };
+    console.log("submitted");
+    await signup(name, form.email, form.password);
+  };
 
   const [showPassword, setShowPassword] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   return (
     <>
+      <SpacingHeader />
       <Box
         sx={{ display: "flex", justifyContent: "center", marginTop: "80px" }}
       >
         <Paper sx={{ width: "40%" }}>
           <Stack
             direction="column"
-            sx={{ alignItems: "center", mt: "10px", mb: "20px" }}
+            sx={{ alignItems: "center", mt: "10px", mb: "20px", gap: "10px" }}
           >
             <Avatar sx={{ bgcolor: "red" }}>
               <LockOutlined />
@@ -53,17 +75,23 @@ export default function Signup() {
               <Stack direction="row" sx={{ gap: "10%" }}>
                 <FormControl margin="normal" required sx={{ width: "45%" }}>
                   <InputLabel>First Name</InputLabel>
-                  <Input></Input>
+                  <Input
+                    value={form.firstName}
+                    onChange={handleFirstnameChange}
+                  />
                 </FormControl>
                 <FormControl margin="normal" required sx={{ width: "45%" }}>
                   <InputLabel>Last Name</InputLabel>
-                  <Input></Input>
+                  <Input
+                    value={form.lastName}
+                    onChange={handleLastnameChange}
+                  />
                 </FormControl>
               </Stack>
 
               <FormControl margin="normal" required fullWidth>
                 <InputLabel>Email Address</InputLabel>
-                <Input></Input>
+                <Input value={form.email} onChange={handleEmailChange} />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="standard-adornment-password">
@@ -84,6 +112,8 @@ export default function Signup() {
                     </InputAdornment>
                   }
                   label="Password"
+                  value={form.password}
+                  onChange={handlePasswordChange}
                 />
               </FormControl>
 
@@ -92,6 +122,7 @@ export default function Signup() {
                 fullWidth
                 variant="contained"
                 sx={{ marginTop: 3, marginBottom: 3 }}
+                onClick={handleSubmit}
               >
                 Sign up
               </Button>

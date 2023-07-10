@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
 
-import { AppBar, Toolbar, Typography, styled } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, styled } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import Userbox from "./Userbox";
 import Menubox from "./Menubox";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 /*
 TODO 
@@ -17,6 +18,8 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 }));
 
 export default function Navbar({ toggleDrawer }) {
+  const { user } = useAuthContext();
+
   return (
     <>
       <StyledAppBar position="fixed">
@@ -26,9 +29,17 @@ export default function Navbar({ toggleDrawer }) {
             justifyContent: "space-between",
           }}
         >
-          <Menubox toggleDrawer={toggleDrawer} />
+          {user && <Menubox toggleDrawer={toggleDrawer} />}
+
           <Typography>Tally-ho</Typography>
-          <Userbox />
+          {user ? (
+            <Userbox />
+          ) : (
+            <Box>
+              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/signup">Sign Up</NavLink>
+            </Box>
+          )}
         </Toolbar>
       </StyledAppBar>
     </>

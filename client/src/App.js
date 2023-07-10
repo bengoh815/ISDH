@@ -11,25 +11,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import GoogleSignIn from "./components/GoogleSignIn";
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  Input,
-  InputLabel,
-  Paper,
-  Stack,
-  ThemeProvider,
-  Toolbar,
-  Typography,
-  styled,
-  useTheme,
-} from "@mui/material";
+import { AppBar, styled, useTheme } from "@mui/material";
 import SideNav from "./components/SideNav";
 import { useContext, useEffect, useState } from "react";
 import Mainbox from "./components/Mainbox";
