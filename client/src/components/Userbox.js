@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Logout, Notifications, Settings } from "@mui/icons-material";
 import NotificationCard from "./NotificationCard";
+import { useLogout } from "../hooks/useLogout";
 
 /*
 TODO
@@ -21,6 +22,8 @@ TODO
 */
 
 export default function Userbox() {
+  const { logout } = useLogout();
+
   const [notifAnchor, setNotifAnchor] = useState(null);
   const [menuAnchor, setMenuAnchor] = useState(null);
 
@@ -29,6 +32,11 @@ export default function Userbox() {
 
   const handleMenuClick = (e) => setMenuAnchor(e.currentTarget);
   const handleMenuClose = () => setMenuAnchor(null);
+
+  const handleLogout = () => {
+    handleMenuClose();
+    logout();
+  };
 
   const openNotif = Boolean(notifAnchor);
   const openMenu = Boolean(menuAnchor);
@@ -122,7 +130,7 @@ export default function Userbox() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleMenuClose}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
