@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import { AUTH_ACTIONS } from "../context/AuthContext";
 
 /*
 TODO
@@ -29,7 +30,7 @@ export const useLogin = () => {
         localStorage.setItem("user", JSON.stringify(json));
 
         // update the auth context
-        dispatch({ type: "LOGIN", payload: json });
+        dispatch({ type: AUTH_ACTIONS.LOGIN, payload: json });
         setIsLoading(false);
       })
       .catch((error) => {

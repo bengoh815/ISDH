@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 
 export const DocsContext = createContext();
 
-const ACTIONS = {
+export const DOC_ACTIONS = {
   SET_DOC: "SET_DOCUMENTS",
   CREATE_DOC: "CREATE_DOCUMENTS",
   DELETE_DOC: "DELETE_DOCUMENTS",
@@ -10,15 +10,15 @@ const ACTIONS = {
 
 export const docsReducer = (state, action) => {
   switch (action.type) {
-    case ACTIONS.SET_DOC:
+    case DOC_ACTIONS.SET_DOC:
       return {
         docs: action.payload,
       };
-    case ACTIONS.CREATE_DOC:
+    case DOC_ACTIONS.CREATE_DOC:
       return {
         docs: [action.payload, ...state.docs],
       };
-    case ACTIONS.DELETE_DOC:
+    case DOC_ACTIONS.DELETE_DOC:
       return {
         docs: state.docs.filter((w) => w._id !== action.payload._id),
       };
