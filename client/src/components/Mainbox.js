@@ -1,13 +1,13 @@
 import { Box, Stack } from "@mui/material";
 import SpacingHeader from "./SpacingHeader";
-import DocumentTable from "./DocumentTable";
+import DocTable from "./DocTable";
 
 export default function Mainbox() {
   return (
     <Box sx={{ width: "100%" }}>
       <Stack direction="column">
         <SpacingHeader />
-        <DocumentTable />
+        <DocTable />
       </Stack>
     </Box>
   );
@@ -16,6 +16,6 @@ export default function Mainbox() {
 // const smtg = (
 // <Stack direction="column">
 //   <SpacingHeader />
-//   <DocumentTable />
+//   <DocTable />
 // </Stack>
 // );

@@ -1,30 +1,34 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const documentModel = new Schema(
+
+// docSchema
+const docSchema = new Schema(
   {
-    userId: {
+    user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    name: {
+    docName: {
       type: String,
       required: true,
     },
     type: {
       type: String,
+      default: "",
     },
     description: {
       type: String,
-    },
-    remindDate: {
-      type: Schema.Types.Date,
+      default: "",
     },
     expirationDate: {
       type: Schema.Types.Date,
+      default: null,
     },
   },
   {
     timestamps: true,
   }
 );
+
+module.exports = mongoose.model("Document", docSchema);

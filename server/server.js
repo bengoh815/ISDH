@@ -9,6 +9,7 @@ const app = express();
 
 // imports
 const userRoutes = require("./routes/users");
+const docRoutes = require("./routes/docs");
 
 // middlewares
 app.use(cors({ origin: "http://localhost:3000" }));
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
   res.status(200).json("receiving loud and clear");
 });
 app.use("/api/user", userRoutes);
+app.use("/api/doc", docRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
