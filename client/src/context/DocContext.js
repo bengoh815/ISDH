@@ -1,6 +1,6 @@
 import { createContext, useReducer } from "react";
 
-export const DocsContext = createContext();
+export const DocContext = createContext();
 
 export const DOC_ACTIONS = {
   SET_DOC: "SET_DOCUMENTS",
@@ -27,14 +27,14 @@ export const docsReducer = (state, action) => {
   }
 };
 
-export const DocsContextProvider = ({ children }) => {
+export const DocContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(docsReducer, {
     docs: null,
   });
 
   return (
-    <DocsContext.Provider value={{ ...state, dispatch }}>
+    <DocContext.Provider value={{ ...state, dispatch }}>
       {children}
-    </DocsContext.Provider>
+    </DocContext.Provider>
   );
 };

@@ -1,11 +1,11 @@
-import { DocsContext } from "../context/DocsContext";
+import { DocContext } from "../context/DocContext";
 import { useContext } from "react";
 
-export const useDocsContext = () => {
-  const context = useContext(DocsContext);
+export const useDocContext = () => {
+  const context = useContext(DocContext);
 
   if (!context) {
-    throw Error("useDocsContext must be used in DocsContextProvider");
+    throw Error("useDocContext must be used in DocContextProvider");
   }
 
   return context;

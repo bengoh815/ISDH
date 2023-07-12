@@ -20,12 +20,12 @@ router.get("/", getDocs);
 router.get("/:id", getDoc);
 
 // POST a new doc
-router.post("/", createDoc);
+router.post("/create", createDoc);
 
 // DEL a new doc
-router.delete("/:id", deleteDoc);
+router.delete("/delete/:id", deleteDoc);
 
 // UPDATE a doc
-router.patch("/:id", updateDoc);
+router.patch("/update/:id", updateDoc);
 
 module.exports = router;
