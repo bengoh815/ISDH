@@ -28,7 +28,7 @@ const getDoc = async (req, res) => {
 
 // POST a new doc
 const createDoc = async (req, res) => {
-  const { docName, type, description, expirationDate } = req.body;
+  const { docName, type, notes, expirationDate } = req.body;
 
   let emptyFields = [];
 
@@ -47,7 +47,7 @@ const createDoc = async (req, res) => {
     const doc = await Doc.create({
       docName,
       type,
-      description,
+      notes,
       expirationDate,
       user_id,
     });

@@ -17,7 +17,7 @@ const docSchema = new Schema(
       type: String,
       default: "",
     },
-    description: {
+    notes: {
       type: String,
       default: "",
     },
