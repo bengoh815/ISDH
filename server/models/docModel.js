@@ -17,13 +17,17 @@ const docSchema = new Schema(
       type: String,
       default: "",
     },
-    notes: {
-      type: String,
-      default: "",
-    },
     expirationDate: {
       type: Schema.Types.Date,
       default: null,
+    },
+    status: {
+      type: String,
+      default: "",
+    },
+    notes: {
+      type: String,
+      default: "",
     },
   },
   {

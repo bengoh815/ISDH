@@ -5,7 +5,7 @@ const Doc = require("../models/docModel");
 const getDocs = async (req, res) => {
   const user_id = req.user._id;
 
-  const docs = await Doc.find({ user_id }).sort({ expirationDate: 1 });
+  const docs = await Doc.find({ user_id }).sort({ expirationDate: -1 });
   res.status(200).json(docs);
 };
 
@@ -28,7 +28,7 @@ const getDoc = async (req, res) => {
 
 // POST a new doc
 const createDoc = async (req, res) => {
-  const { docName, type, notes, expirationDate } = req.body;
+  const { docName, type, expirationDate, status, notes } = req.body;
 
   let emptyFields = [];
 
@@ -47,8 +47,9 @@ const createDoc = async (req, res) => {
     const doc = await Doc.create({
       docName,
       type,
-      notes,
       expirationDate,
+      status,
+      notes,
       user_id,
     });
     res.status(200).json(doc);

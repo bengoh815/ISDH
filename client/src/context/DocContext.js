@@ -20,7 +20,7 @@ export const docsReducer = (state, action) => {
       };
     case DOC_ACTIONS.DELETE_DOC:
       return {
-        docs: state.docs.filter((w) => w._id !== action.payload._id),
+        docs: state.docs.filter((d) => d._id !== action.payload._id),
       };
     default:
       return state;

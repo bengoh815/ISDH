@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -8,12 +9,17 @@ import {
   MenuItem,
   Modal,
   Select,
+  Snackbar,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
+import axios from "axios";
 import { useState } from "react";
+import { useDocContext } from "../hooks/useDocContext";
+import { DOC_ACTIONS } from "../context/DocContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const style = {
   position: "absolute",
@@ -29,21 +35,28 @@ const style = {
 
 /*
 TODO:
-  use MUI snackbar to create success after posting to db
-  create dispatch to local frontend thing
-  handle error adding and remove at dispatch
+  Expansion: sorted by expiration date when added
 */
 
 export default function DocNew() {
+  const { user } = useAuthContext();
+  const { dispatch } = useDocContext();
+
   const [open, setOpen] = useState(false);
   const handleToggle = () => setOpen(!open);
+
+  const [responseOpen, setResponseOpen] = useState(false);
+  const handleResponseOpen = () => setResponseOpen(true);
+  const handleResponseClose = () => setResponseOpen(false);
+
+  const [addSuccess, setAddSuccess] = useState(false);
 
   const [form, setForm] = useState({
     docName: "",
     type: "",
-    notes: "",
-    status: "",
     expirationDate: new Date(),
+    status: "",
+    notes: "",
   });
   const handleDocName = (e) => {
     setForm({ ...form, docName: e.target.value });
@@ -60,7 +73,7 @@ export default function DocNew() {
   const handleExpirationDate = (v) => {
     setForm({ ...form, expirationDate: v });
   };
-  const handleCancel = () => {
+  const clearForm = () => {
     setForm({
       docName: "",
       type: "",
@@ -68,10 +81,43 @@ export default function DocNew() {
       status: "",
       expirationDate: new Date(),
     });
+  };
+  const handleCancel = () => {
+    clearForm();
     setOpen(false);
   };
+
   const handleSubmit = () => {
-    console.log(form);
+    const data = form;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    axios
+      .post("http://localhost:8000/api/doc/create", data, config)
+      .then((response) => {
+        if (response.status === 200) {
+          setAddSuccess(true);
+
+          const json = response.data;
+
+          // update the auth context
+          dispatch({ type: DOC_ACTIONS.CREATE_DOC, payload: json });
+        } else {
+          setAddSuccess(false);
+        }
+
+        handleResponseOpen();
+      })
+      .catch((error) => {
+        console.log(error.response);
+        setAddSuccess(false);
+        handleResponseOpen();
+      });
+
+    clearForm();
     setOpen(false);
   };
 
@@ -159,6 +205,29 @@ export default function DocNew() {
           </Stack>
         </Box>
       </Modal>
+      <Snackbar
+        open={responseOpen}
+        autoHideDuration={6000}
+        onClose={handleResponseClose}
+      >
+        {addSuccess ? (
+          <Alert
+            onClose={handleResponseClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Tracking new document!
+          </Alert>
+        ) : (
+          <Alert
+            onClose={handleResponseClose}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            Error tracking new document!
+          </Alert>
+        )}
+      </Snackbar>
     </>
   );
 }
