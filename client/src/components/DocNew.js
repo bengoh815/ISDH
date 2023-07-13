@@ -7,8 +7,8 @@ import {
   InputLabel,
   MenuItem,
   Modal,
-  OutlinedInput,
   Select,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -60,6 +60,16 @@ export default function DocNew() {
   const handleExpirationDate = (v) => {
     setForm({ ...form, expirationDate: v });
   };
+  const handleCancel = () => {
+    setForm({
+      docName: "",
+      type: "",
+      notes: "",
+      status: "",
+      expirationDate: new Date(),
+    });
+    setOpen(false);
+  };
   const handleSubmit = () => {
     console.log(form);
     setOpen(false);
@@ -70,7 +80,7 @@ export default function DocNew() {
       <Button onClick={handleToggle}>track new document</Button>
       <Modal open={open}>
         <Box sx={style}>
-          <Typography variant="h5">Create New Document</Typography>
+          <Typography variant="h4">Track New Document</Typography>
           <FormGroup>
             <FormControl margin="normal">
               <TextField
@@ -97,13 +107,10 @@ export default function DocNew() {
               </Select>
             </FormControl>
             <FormControl margin="normal">
-              <TextField
-                id="outlined-multiline-static"
-                label="Notes"
-                multiline
-                rows={2}
-                value={form.notes}
-                onChange={handleNotes}
+              <DatePicker
+                label="Expiration Date"
+                value={form.expirationDate}
+                onChange={(v) => handleExpirationDate(v)}
               />
             </FormControl>
             <FormControl margin="normal">
@@ -122,15 +129,34 @@ export default function DocNew() {
               </Select>
             </FormControl>
             <FormControl margin="normal">
-              <DatePicker
-                label="Expiration Date"
-                value={form.expirationDate}
-                onChange={(v) => handleExpirationDate(v)}
+              <TextField
+                id="outlined-multiline-static"
+                label="Notes"
+                multiline
+                rows={3}
+                value={form.notes}
+                onChange={handleNotes}
               />
             </FormControl>
           </FormGroup>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Stack direction="row" gap="4%" marginTop="20px">
+            <Button
+              variant="contained"
+              color="error"
+              sx={{ width: "48%" }}
+              onClick={handleCancel}
+            >
+              cancel
+            </Button>
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ width: "48%" }}
+              onClick={handleSubmit}
+            >
+              track
+            </Button>
+          </Stack>
         </Box>
       </Modal>
     </>
