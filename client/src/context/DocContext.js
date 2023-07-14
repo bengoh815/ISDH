@@ -5,6 +5,7 @@ export const DocContext = createContext();
 export const DOC_ACTIONS = {
   SET_DOC: "SET_DOCUMENTS",
   CREATE_DOC: "CREATE_DOCUMENTS",
+  UPDATE_DOC: "UPDATE_DOCUMENTS",
   DELETE_DOC: "DELETE_DOCUMENTS",
 };
 
@@ -17,6 +18,12 @@ export const docsReducer = (state, action) => {
     case DOC_ACTIONS.CREATE_DOC:
       return {
         docs: [action.payload, ...state.docs],
+      };
+    case DOC_ACTIONS.UPDATE_DOC:
+      return {
+        docs: state.docs.map((d) =>
+          d._id === action.payload._id ? action.payload : d
+        ),
       };
     case DOC_ACTIONS.DELETE_DOC:
       return {

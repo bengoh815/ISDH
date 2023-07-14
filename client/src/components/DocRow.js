@@ -1,8 +1,9 @@
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
-import { TableCell, TableRow, Box } from "@mui/material";
-import { Delete, Edit, OpenInNew } from "@mui/icons-material";
+import { TableCell, TableRow, Box, IconButton } from "@mui/material";
+import { Delete, OpenInNew } from "@mui/icons-material";
 import DocStatus from "./DocStatus";
+import DocEdit from "./DocEdit";
 
 /*
 TODO
@@ -25,9 +26,13 @@ export default function DocRow({ doc }) {
         <DocStatus status={doc.status} />
       </TableCell>
       <TableCell>
-        <Edit />
-        <Delete />
-        <OpenInNew />
+        <DocEdit doc={doc} />
+        <IconButton>
+          <Delete />
+        </IconButton>
+        <IconButton>
+          <OpenInNew />
+        </IconButton>
       </TableCell>
     </TableRow>
   );

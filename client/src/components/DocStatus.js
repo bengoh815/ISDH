@@ -1,5 +1,5 @@
 import { Check, Close, WarningAmber, WorkHistory } from "@mui/icons-material";
-import { Box, Stack, Typography, colors } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 export const DOC_STATUS = {
   OKAY: "okay",
@@ -60,7 +60,7 @@ export default function DocStatus({ status }) {
           />
         );
       default:
-        return "black";
+        return "";
     }
   };
   const icon = parseIcon(status);

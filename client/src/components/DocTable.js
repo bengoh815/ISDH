@@ -47,7 +47,7 @@ export default function DocumentTable() {
             <TableCell>Name</TableCell>
             <TableCell>Expiry Date</TableCell>
             <TableCell sx={{ minWidth: "85px" }}>Status</TableCell>
-            <TableCell>Link</TableCell>
+            <TableCell>Options</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

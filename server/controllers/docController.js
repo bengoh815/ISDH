@@ -83,7 +83,13 @@ const updateDoc = async (req, res) => {
     return res.status(404).json({ error: "No such doc" });
   }
 
-  const doc = await Doc.findOneAndUpdate({ _id: id }, { ...req.body });
+  const doc = await Doc.findOneAndUpdate(
+    { _id: id },
+    { ...req.body },
+    {
+      new: true,
+    }
+  );
 
   if (!doc) {
     return res.status(404).json({ error: "No such doc" });

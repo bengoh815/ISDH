@@ -103,7 +103,7 @@ export default function DocNew() {
 
           const json = response.data;
 
-          // update the auth context
+          // update the doc context
           dispatch({ type: DOC_ACTIONS.CREATE_DOC, payload: json });
         } else {
           setAddSuccess(false);
