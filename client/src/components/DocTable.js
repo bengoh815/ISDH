@@ -9,9 +9,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { OpenInNew } from "@mui/icons-material";
-
-import Status from "./Status";
 
 import { useDocContext } from "../hooks/useDocContext";
 import { useAuthContext } from "../hooks/useAuthContext";

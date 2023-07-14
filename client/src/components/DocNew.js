@@ -4,7 +4,6 @@ import {
   Button,
   FormControl,
   FormGroup,
-  Input,
   InputLabel,
   MenuItem,
   Modal,
@@ -19,6 +18,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDocContext } from "../hooks/useDocContext";
 import { DOC_ACTIONS } from "../context/DocContext";
+import { DOC_STATUS } from "./DocStatus";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const style = {
@@ -54,7 +54,7 @@ export default function DocNew() {
   const [form, setForm] = useState({
     docName: "",
     type: "",
-    expirationDate: new Date(),
+    expirationDate: null,
     status: "",
     notes: "",
   });
@@ -79,7 +79,7 @@ export default function DocNew() {
       type: "",
       notes: "",
       status: "",
-      expirationDate: new Date(),
+      expirationDate: null,
     });
   };
   const handleCancel = () => {
@@ -168,10 +168,10 @@ export default function DocNew() {
                 value={form.status}
                 onChange={handleStatus}
               >
-                <MenuItem value={"okay"}>Okay</MenuItem>
-                <MenuItem value={"ongoing"}>Ongoing</MenuItem>
-                <MenuItem value={"expiring"}>Expiring</MenuItem>
-                <MenuItem value={"expired"}>Expired</MenuItem>
+                <MenuItem value={DOC_STATUS.OKAY}>Okay</MenuItem>
+                <MenuItem value={DOC_STATUS.ONGOING}>Ongoing</MenuItem>
+                <MenuItem value={DOC_STATUS.EXPIRING}>Expiring</MenuItem>
+                <MenuItem value={DOC_STATUS.EXPIRED}>Expired</MenuItem>
               </Select>
             </FormControl>
             <FormControl margin="normal">
