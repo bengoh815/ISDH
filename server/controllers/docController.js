@@ -58,7 +58,7 @@ const createDoc = async (req, res) => {
   }
 };
 
-// DEL a new doc
+// DEL a doc
 const deleteDoc = async (req, res) => {
   const { id } = req.params;
 

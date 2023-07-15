@@ -4,6 +4,7 @@ import { TableCell, TableRow, Box, IconButton } from "@mui/material";
 import { Delete, OpenInNew } from "@mui/icons-material";
 import DocStatus from "./DocStatus";
 import DocEdit from "./DocEdit";
+import DocDel from "./DocDel";
 
 /*
 TODO
@@ -27,9 +28,7 @@ export default function DocRow({ doc }) {
       </TableCell>
       <TableCell>
         <DocEdit doc={doc} />
-        <IconButton>
-          <Delete />
-        </IconButton>
+        <DocDel doc={doc} />
         <IconButton>
           <OpenInNew />
         </IconButton>
