@@ -1,4 +1,8 @@
-import { LockOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
+// npm
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+// mui
 import {
   Avatar,
   Box,
@@ -15,38 +19,34 @@ import {
   InputAdornment,
   Divider,
 } from "@mui/material";
-import { useState } from "react";
-import GoogleSignIn from "./GoogleSignIn";
-import { Link } from "react-router-dom";
-import SpacingHeader from "./SpacingHeader";
-import { useSignup } from "../hooks/useSignup";
+import { LockOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
+
+// components
+import Navbar from "../components/Navbar";
+import SpacingHeader from "../components/SpacingHeader";
+import GoogleSignIn from "../components/GoogleSignIn";
+
+// hooks
+import { useLogin } from "../hooks/useLogin";
 
 /*
 TODO
   Fix google button width
+  password requirements state clearly
+  forget password
   handle error
 */
 
-export default function Signup() {
+export default function Login() {
   const theme = useTheme();
-  const { signup, isLoading, error } = useSignup();
+  const { login, isLoading, error } = useLogin();
 
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
-  const handleFirstnameChange = (e) =>
-    setForm({ ...form, firstName: e.target.value });
-  const handleLastnameChange = (e) =>
-    setForm({ ...form, lastName: e.target.value });
+  const [form, setForm] = useState({ email: "", password: "" });
   const handleEmailChange = (e) => setForm({ ...form, email: e.target.value });
   const handlePasswordChange = (e) =>
     setForm({ ...form, password: e.target.value });
   const handleSubmit = async (e) => {
-    const name = { firstName: form.firstName, lastName: form.lastName };
-    await signup(name, form.email, form.password);
+    await login(form.email, form.password);
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -54,11 +54,12 @@ export default function Signup() {
 
   return (
     <>
+      <Navbar />
       <SpacingHeader />
       <Box
         sx={{ display: "flex", justifyContent: "center", marginTop: "80px" }}
       >
-        <Paper sx={{ width: "40%" }}>
+        <Paper sx={{ width: "40%", maxWidth: "450px" }}>
           <Stack
             direction="column"
             sx={{ alignItems: "center", mt: "10px", mb: "20px", gap: "10px" }}
@@ -67,26 +68,9 @@ export default function Signup() {
               <LockOutlined />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              Log in
             </Typography>
             <FormGroup sx={{ width: "80%" }}>
-              <Stack direction="row" sx={{ gap: "10%" }}>
-                <FormControl margin="normal" required sx={{ width: "45%" }}>
-                  <InputLabel>First Name</InputLabel>
-                  <Input
-                    value={form.firstName}
-                    onChange={handleFirstnameChange}
-                  />
-                </FormControl>
-                <FormControl margin="normal" required sx={{ width: "45%" }}>
-                  <InputLabel>Last Name</InputLabel>
-                  <Input
-                    value={form.lastName}
-                    onChange={handleLastnameChange}
-                  />
-                </FormControl>
-              </Stack>
-
               <FormControl margin="normal" required fullWidth>
                 <InputLabel>Email Address</InputLabel>
                 <Input value={form.email} onChange={handleEmailChange} />
@@ -123,7 +107,7 @@ export default function Signup() {
                 onClick={handleSubmit}
                 disabled={isLoading}
               >
-                Sign up
+                Log in
               </Button>
             </FormGroup>
             <Divider
@@ -131,7 +115,7 @@ export default function Signup() {
             />
             <GoogleSignIn />
             <Typography>
-              Already have an account? <Link to="/login">Log in</Link>
+              Don't have an account? <Link to="/signup">Sign up</Link>
             </Typography>
           </Stack>
         </Paper>

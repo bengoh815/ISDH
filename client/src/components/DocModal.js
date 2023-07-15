@@ -1,11 +1,6 @@
 // mui
 import { Box, Modal } from "@mui/material";
 
-/*
-TODO:
-  DRY for modal creation and style
-*/
-
 const style = {
   position: "absolute",
   top: "50%",

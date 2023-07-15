@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 
 import { AppBar, Box, Toolbar, Typography, styled } from "@mui/material";
-import MuiAppBar from "@mui/material/AppBar";
 import Userbox from "./Userbox";
 import Menubox from "./Menubox";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -11,6 +10,7 @@ TODO
   RESPONSIVE DESIGN
     make sure Dashboard and bell dissappear
   display userbox only when logged in
+  fix link buttons design
 */
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({

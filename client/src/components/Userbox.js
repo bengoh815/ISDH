@@ -1,128 +1,76 @@
+// npm
 import { useState } from "react";
+
+// mui
 import {
   Avatar,
-  Badge,
-  Box,
   Divider,
   IconButton,
   ListItemIcon,
   Menu,
   MenuItem,
-  Popover,
   Tooltip,
 } from "@mui/material";
-import { Logout, Notifications, Settings } from "@mui/icons-material";
-import NotificationCard from "./NotificationCard";
-import { useLogout } from "../hooks/useLogout";
+import { Logout, Settings } from "@mui/icons-material";
+
+// hooks
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useLogout } from "../hooks/useLogout";
 
 /*
 TODO
-  badgeContent is dynamic
+  make the account settings go down
+  fix account setting avatar size
+  Expansion
+    notifications for the account
 */
 
-export default function Userbox() {
+export default function User() {
+  // context
   const { user } = useAuthContext();
-  const { logout } = useLogout();
 
-  const [notifAnchor, setNotifAnchor] = useState(null);
+  // popup menu
   const [menuAnchor, setMenuAnchor] = useState(null);
-
-  const handleNotifClick = (e) => setNotifAnchor(e.currentTarget);
-  const handleNotifClose = () => setNotifAnchor(null);
-
   const handleMenuClick = (e) => setMenuAnchor(e.currentTarget);
   const handleMenuClose = () => setMenuAnchor(null);
 
+  // hooks
+  const { logout } = useLogout();
   const handleLogout = () => {
     handleMenuClose();
     logout();
   };
 
-  const openNotif = Boolean(notifAnchor);
   const openMenu = Boolean(menuAnchor);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: "10px",
-      }}
-    >
-      <Tooltip title="Notifications">
-        <IconButton
-          onClick={handleNotifClick}
-          aria-label="notifications"
-          size="medium"
-        >
-          <Badge color="error" badgeContent={1}>
-            <Notifications fontSize="inherit" sx={{ color: "white" }} />
-          </Badge>
-        </IconButton>
-      </Tooltip>
+    <>
       <Tooltip title="Account settings">
         <IconButton
           onClick={handleMenuClick}
-          aria-label="notifications"
+          aria-label="account-settings"
           size="small"
-          sx={{ ml: 2 }}
         >
           <Avatar sx={{ width: 32, height: 32 }}>
             {user.email[0].toUpperCase()}
           </Avatar>
         </IconButton>
       </Tooltip>
-      <Popover
-        id="account-notifications"
-        anchorEl={notifAnchor}
-        open={openNotif}
-        onClose={handleNotifClose}
-        onClick={handleNotifClose}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      >
-        <NotificationCard></NotificationCard>
-        <NotificationCard></NotificationCard>
-      </Popover>
       <Menu
         id="account-menu"
         anchorEl={menuAnchor}
         open={openMenu}
         onClose={handleMenuClose}
         onClick={handleMenuClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            "&:before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
-            },
-          },
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
         }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
       >
-        <MenuItem onClick={handleMenuClose}>
-          <Avatar /> Profile
-        </MenuItem>
         <MenuItem onClick={handleMenuClose}>
           <Avatar /> My account
         </MenuItem>
@@ -140,6 +88,6 @@ export default function Userbox() {
           Logout
         </MenuItem>
       </Menu>
-    </Box>
+    </>
   );
 }

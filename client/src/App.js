@@ -1,3 +1,4 @@
+// router
 import {
   BrowserRouter as Router,
   Routes,
@@ -5,39 +6,35 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import { useState } from "react";
+// context
 import { useAuthContext } from "./hooks/useAuthContext";
 
-function App() {
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const { user } = useAuthContext();
+// components
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
-  const toggleDrawer = () => {
-    setOpenDrawer(!openDrawer);
-  };
+function App() {
+  // context
+  const { user } = useAuthContext();
 
   return (
     <>
       <Router>
-        <Navbar toggleDrawer={toggleDrawer} />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route
-            path="/"
-            element={
-              user ? <Home openDrawer={openDrawer} /> : <Navigate to="/login" />
-            }
+            path="/dashboard"
+            element={user ? <Dashboard /> : <Navigate to="/login" />}
           />
           <Route
             path="/login"
-            element={!user ? <Login /> : <Navigate to="/" />}
+            element={!user ? <Login /> : <Navigate to="/dashboard" />}
           />
           <Route
             path="/signup"
-            element={!user ? <Signup /> : <Navigate to="/" />}
+            element={!user ? <Signup /> : <Navigate to="/dashboard" />}
           />
         </Routes>
       </Router>

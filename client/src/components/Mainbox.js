@@ -6,18 +6,11 @@ import DocBar from "./DocBar";
 export default function Mainbox() {
   return (
     <Box sx={{ width: "100%" }}>
+      <SpacingHeader />
       <Stack direction="column" gap="20px">
-        <SpacingHeader />
         <DocBar />
         <DocTable />
       </Stack>
     </Box>
   );
 }
-
-// const smtg = (
-// <Stack direction="column">
-//   <SpacingHeader />
-//   <DocTable />
-// </Stack>
-// );

@@ -1,25 +1,39 @@
+// npm
 import { useState } from "react";
-import {
-  DarkMode,
-  Dashboard,
-  Description,
-  LightMode,
-} from "@mui/icons-material";
+
+// mui
 import {
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Stack,
   styled,
 } from "@mui/material";
+import {
+  DarkMode,
+  Dashboard,
+  KeyboardDoubleArrowLeft,
+  KeyboardDoubleArrowRight,
+  LightMode,
+} from "@mui/icons-material";
 import MuiDrawer from "@mui/material/Drawer";
+
+// components
 import SpacingHeader from "./SpacingHeader";
+import Userbox from "./Userbox";
 
 /* 
 TODO
   Link dark mode to all theme
+  fix open sidebar and userbox to be at bottom of sidenav
+  fix hover oval shapped thing
+  when open should have full name or email of user
+  have logo or smtg where spacing header should be
+  figure out its responsive design
 */
 
 const drawerWidth = 200;
@@ -62,9 +76,13 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function SideNav({ openDrawer }) {
-  const [viewMode, setViewMode] = useState("Dark");
+export default function SideNav() {
+  // drawer
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const toggleDrawer = () => setOpenDrawer(!openDrawer);
 
+  // view mode
+  const [viewMode, setViewMode] = useState("Dark");
   const toggleViewMode = () =>
     setViewMode(viewMode === "Dark" ? "Light" : "Dark");
 
@@ -103,29 +121,6 @@ export default function SideNav({ openDrawer }) {
               justifyContent: openDrawer ? "initial" : "center",
               px: 2.5,
             }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: openDrawer ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              <Description />
-            </ListItemIcon>
-            <ListItemText
-              primary="Documents"
-              sx={{ opacity: openDrawer ? 1 : 0 }}
-            />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding sx={{ display: "block" }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              justifyContent: openDrawer ? "initial" : "center",
-              px: 2.5,
-            }}
             onClick={toggleViewMode}
           >
             <ListItemIcon
@@ -144,6 +139,17 @@ export default function SideNav({ openDrawer }) {
           </ListItemButton>
         </ListItem>
       </List>
+      <Divider />
+      <Stack direction="column">
+        <IconButton onClick={toggleDrawer}>
+          {openDrawer ? (
+            <KeyboardDoubleArrowLeft />
+          ) : (
+            <KeyboardDoubleArrowRight />
+          )}
+        </IconButton>
+        <Userbox />
+      </Stack>
     </Drawer>
   );
 }
