@@ -1,6 +1,6 @@
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
-import { TableCell, TableRow, Box, IconButton } from "@mui/material";
+import { TableCell, TableRow, Box, IconButton, Tooltip } from "@mui/material";
 import { Delete, OpenInNew } from "@mui/icons-material";
 import DocStatus from "./DocStatus";
 import DocEdit from "./DocEdit";
@@ -20,8 +20,15 @@ export default function DocRow({ doc }) {
         <Box sx={{ textTransform: "capitalize" }}>{doc.docName}</Box>
       </TableCell>
       <TableCell>
-        {formatDistanceToNow(new Date(doc.expirationDate), { addSuffix: true })}
-        {/* {doc.expirationDate} */}
+        {doc.expirationDate === null ? (
+          <Tooltip title="Does Not Expire" placement="bottom-start">
+            <Box>DNE</Box>
+          </Tooltip>
+        ) : (
+          formatDistanceToNow(new Date(doc.expirationDate), {
+            addSuffix: true,
+          })
+        )}
       </TableCell>
       <TableCell>
         <DocStatus status={doc.status} />

@@ -50,7 +50,8 @@ export default function DocEdit({ doc }) {
 
   const [form, setForm] = useState({
     ...doc,
-    expirationDate: new Date(doc.expirationDate),
+    expirationDate:
+      doc.expirationDate === null ? null : new Date(doc.expirationDate),
   });
   const handleDocName = (e) => {
     setForm({ ...form, docName: e.target.value });
