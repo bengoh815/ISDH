@@ -1,7 +1,7 @@
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 import { TableCell, TableRow, Box, IconButton, Tooltip } from "@mui/material";
-import { Delete, OpenInNew } from "@mui/icons-material";
+import { OpenInNew } from "@mui/icons-material";
 import DocStatus from "./DocStatus";
 import DocEdit from "./DocEdit";
 import DocDel from "./DocDel";
