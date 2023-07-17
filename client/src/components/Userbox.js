@@ -5,11 +5,12 @@ import { useState } from "react";
 import {
   Avatar,
   Divider,
-  IconButton,
+  ListItem,
+  ListItemButton,
   ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
-  Tooltip,
 } from "@mui/material";
 import { Logout, Settings } from "@mui/icons-material";
 
@@ -19,13 +20,11 @@ import { useLogout } from "../hooks/useLogout";
 
 /*
 TODO
-  make the account settings go down
-  fix account setting avatar size
   Expansion
     notifications for the account
 */
 
-export default function User() {
+export default function Userbox({ openDrawer }) {
   // context
   const { user } = useAuthContext();
 
@@ -45,17 +44,35 @@ export default function User() {
 
   return (
     <>
-      <Tooltip title="Account settings">
-        <IconButton
+      <ListItem disablePadding sx={{ display: "block" }}>
+        <ListItemButton
           onClick={handleMenuClick}
-          aria-label="account-settings"
-          size="small"
+          sx={{
+            minHeight: 48,
+            justifyContent: openDrawer ? "initial" : "center",
+            px: 2.5,
+          }}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>
-            {user.email[0].toUpperCase()}
-          </Avatar>
-        </IconButton>
-      </Tooltip>
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: openDrawer ? 3 : "auto",
+              justifyContent: "center",
+            }}
+          >
+            <Avatar sx={{ width: 28, height: 28 }}>
+              {user.email[0].toUpperCase()}
+            </Avatar>
+          </ListItemIcon>
+          <ListItemText
+            primary={user.email.split("@")[0]}
+            sx={{ opacity: openDrawer ? 1 : 0, textOverflow: "ellipsis" }}
+          >
+            {user.email.split("@")[0]}
+          </ListItemText>
+        </ListItemButton>
+      </ListItem>
+
       <Menu
         id="account-menu"
         anchorEl={menuAnchor}
@@ -72,7 +89,7 @@ export default function User() {
         }}
       >
         <MenuItem onClick={handleMenuClose}>
-          <Avatar /> My account
+          <Avatar sx={{ width: 32, height: 32 }} /> My account
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleMenuClose}>
