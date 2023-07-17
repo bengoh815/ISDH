@@ -5,15 +5,16 @@ import { NavLink } from "react-router-dom";
 import {
   AppBar,
   Button,
+  IconButton,
   Stack,
   Toolbar,
   Typography,
   styled,
 } from "@mui/material";
+import { Home } from "@mui/icons-material";
 
 // components
 import Userbox from "./Userbox";
-import Menubox from "./Menubox";
 
 // hooks
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -40,8 +41,9 @@ export default function Navbar({ toggleDrawer }) {
             justifyContent: "space-between",
           }}
         >
-          {user && <Menubox toggleDrawer={toggleDrawer} />}
-
+          <IconButton component={NavLink} to="/" sx={{ color: "white" }}>
+            <Home />
+          </IconButton>
           <Typography>Tally-ho</Typography>
           {user ? (
             <Userbox />
