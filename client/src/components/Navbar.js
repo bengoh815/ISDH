@@ -1,16 +1,27 @@
+// npm
 import { NavLink } from "react-router-dom";
 
-import { AppBar, Box, Toolbar, Typography, styled } from "@mui/material";
+// mui
+import {
+  AppBar,
+  Button,
+  Stack,
+  Toolbar,
+  Typography,
+  styled,
+} from "@mui/material";
+
+// components
 import Userbox from "./Userbox";
 import Menubox from "./Menubox";
+
+// hooks
 import { useAuthContext } from "../hooks/useAuthContext";
 
 /*
 TODO 
   RESPONSIVE DESIGN
     make sure Dashboard and bell dissappear
-  display userbox only when logged in
-  fix link buttons design
 */
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -35,10 +46,14 @@ export default function Navbar({ toggleDrawer }) {
           {user ? (
             <Userbox />
           ) : (
-            <Box>
-              <NavLink to="/login">Login</NavLink>
-              <NavLink to="/signup">Sign Up</NavLink>
-            </Box>
+            <Stack direction="row" gap="10px">
+              <Button component={NavLink} to="/login" sx={{ color: "white" }}>
+                Login
+              </Button>
+              <Button component={NavLink} to="/signup" sx={{ color: "white" }}>
+                Sign Up
+              </Button>
+            </Stack>
           )}
         </Toolbar>
       </StyledAppBar>
@@ -46,39 +61,5 @@ export default function Navbar({ toggleDrawer }) {
   );
 }
 
-// when no user
-// const smtgLikeThis = (
-//   <StyledAppBar position="fixed">
-//     <Toolbar
-//       sx={{
-//         display: "flex",
-//         justifyContent: "space-between",
-//       }}
-//     >
-//       <Box>empty</Box>
-//       <Typography>Tally-ho</Typography>
-//     </Toolbar>
-//   </StyledAppBar>
-// );
-
-// const old = (
-//   <AppBar position="sticky">
-//     <Toolbar>
-//       <NavLink to="/">
-//         <FolderIcon />
-//         <Typography sx={{ flexGrow: 1 }}>Document Manager</Typography>
-//       </NavLink>
-//       <Stack direction="row">
-//         <NavLink to="/login">
-//           <Button color="inherit">Log in</Button>
-//         </NavLink>
-//         <NavLink to="/signup">
-//           <Button color="inherit">Sign Up</Button>
-//         </NavLink>
-//         <NavLink to="/googlesignin">
-//           <Button color="inherit">Google Sign In</Button>
-//         </NavLink>
-//       </Stack>
-//     </Toolbar>
-//   </AppBar>
-// );
+// const smtg = <NavLink to="/login">Login</NavLink>
+// const smtg = <NavLink to="/signup">Sign Up</NavLink>

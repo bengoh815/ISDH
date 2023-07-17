@@ -28,7 +28,6 @@ import Userbox from "./Userbox";
 /* 
 TODO
   Link dark mode to all theme
-  fix open sidebar and userbox to be at bottom of sidenav
   have logo or smtg where spacing header should be
   figure out its responsive design
 */
