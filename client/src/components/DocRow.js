@@ -1,7 +1,11 @@
+// npm
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
+// mui
 import { TableCell, TableRow, Box, IconButton, Tooltip } from "@mui/material";
 import { OpenInNew } from "@mui/icons-material";
+
+// components
 import DocStatus from "./DocStatus";
 import DocEdit from "./DocEdit";
 import DocDel from "./DocDel";
