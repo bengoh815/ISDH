@@ -5,6 +5,7 @@ const {
   loginUser,
   signupUser,
   googleSigninUser,
+  verifyUser,
 } = require("../controllers/userController");
 
 /* 
@@ -20,5 +21,8 @@ router.post("/signup", signupUser);
 
 // google signin
 router.post("/googlesignin", googleSigninUser);
+
+// verify
+router.get("/:id/verify/:token", verifyUser);
 
 module.exports = router;

@@ -1,11 +1,16 @@
+const crypto = require("crypto");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const tokenModel = new Schema({
+const tokenSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
     unique: true,
+    required: true,
+  },
+  token: {
+    type: String,
     required: true,
   },
   expiresAt: {
@@ -15,4 +20,15 @@ const tokenModel = new Schema({
   },
 });
 
-module.exports = mongoose.model("token", tokenModel);
+// verify token
+tokenSchema.statics.createVerifyToken = async function (userId) {
+  const hashToken = crypto.randomBytes(32).toString("hex");
+
+  const verifyToken = await this.create({
+    userId,
+    token: hashToken,
+  });
+  return verifyToken;
+};
+
+module.exports = mongoose.model("token", tokenSchema);

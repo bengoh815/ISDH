@@ -123,7 +123,7 @@ export default function Signup() {
                   onChange={handlePasswordChange}
                 />
               </FormControl>
-
+              {error && <Box>{error.message}</Box>}
               <Button
                 type="submit"
                 fullWidth
