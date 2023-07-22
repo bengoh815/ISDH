@@ -91,6 +91,29 @@ const googleSigninUser = async (req, res) => {
 };
 
 // verify user
-const verifyUser = async (req, res) => {};
+const verifyUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+    if (!user) {
+      return res.status(400).send({ message: "Invalid link" });
+    }
+
+    const verifyToken = await Token.findOne({
+      userId: user._id,
+      token: req.params.token,
+    });
+    if (!verifyToken) {
+      return res.status(400).send({ message: "Invalid link" });
+    }
+
+    await User.findOneAndUpdate({ _id: user._id }, { verified: true });
+
+    await Token.findOneAndDelete({ _id: verifyToken._id });
+
+    res.status(200).json({ message: "Email verified successfully" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 module.exports = { loginUser, signupUser, googleSigninUser, verifyUser };
