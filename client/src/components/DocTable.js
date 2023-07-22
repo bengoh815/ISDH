@@ -67,7 +67,7 @@ export default function DocumentTable() {
     const getDocs = async () => {
       const config = {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.jwtToken}`,
         },
       };
       await axios

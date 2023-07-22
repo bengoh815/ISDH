@@ -81,7 +81,7 @@ export default function DocEdit({ doc }) {
     const data = form;
     const config = {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${user.jwtToken}`,
       },
     };
 

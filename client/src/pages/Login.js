@@ -18,6 +18,7 @@ import {
   IconButton,
   InputAdornment,
   Divider,
+  Alert,
 } from "@mui/material";
 import { LockOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -98,7 +99,7 @@ export default function Login() {
                   onChange={handlePasswordChange}
                 />
               </FormControl>
-
+              {error && <Alert severity="error">{error.message}</Alert>}
               <Button
                 type="submit"
                 fullWidth

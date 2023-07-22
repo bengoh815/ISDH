@@ -88,7 +88,7 @@ export default function DocNew() {
     const data = form;
     const config = {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${user.jwtToken}`,
       },
     };
 

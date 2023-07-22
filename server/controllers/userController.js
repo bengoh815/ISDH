@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 const User = require("../models/userModel");
 const Token = require("../models/tokenModel");
 const sendEmail = require("../utils/sendEmail");
@@ -17,10 +16,26 @@ const loginUser = async (req, res) => {
 
     if (!user.verified) {
       // user not verified
-
       // check if verify token exists
+      const exist = await Token.findOne({ userId: user._id });
 
-      const verifyToken = await Token.createVerifyToken(user._id);
+      if (!exist) {
+        // token does not exist
+        // create new token
+        const verifyToken = await Token.createVerifyToken(user._id);
+
+        const emailSubject = "Verify Your Email";
+        const url = `http://localhost:3000/users/${user._id}/verify/${verifyToken.token}`;
+        const emailBody = `Please verify your email with this link ${url}`;
+
+        await sendEmail(user.email, emailSubject, emailBody);
+
+        return res
+          .status(400)
+          .json({ message: "An Email sent to your account please verify" });
+      }
+
+      return res.status(400).json({ message: "Please verify your account" });
     }
 
     // create jwtToken
@@ -39,7 +54,6 @@ const signupUser = async (req, res) => {
   try {
     const user = await User.signup(name, email, password);
 
-    const hashToken = crypto.randomBytes(16).toString("hex");
     const verifyToken = await Token.createVerifyToken(user._id);
 
     const emailSubject = "Verify Your Email";
@@ -52,7 +66,6 @@ const signupUser = async (req, res) => {
       .status(201)
       .json({ message: "An Email sent to your account please verify" });
   } catch (error) {
-    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };

@@ -25,16 +25,18 @@ export const useLogin = () => {
         headers: headers,
       })
       .then((response) => {
-        const json = response.data;
-        // save user to local storage
-        localStorage.setItem("user", JSON.stringify(json));
+        console.log(response);
+        if (response.status >= 200 && response.status < 300) {
+          const json = response.data;
+          // save user to local storage
+          localStorage.setItem("user", JSON.stringify(json));
 
-        // update the auth context
-        dispatch({ type: AUTH_ACTIONS.LOGIN, payload: json });
-        setIsLoading(false);
+          // update the auth context
+          dispatch({ type: AUTH_ACTIONS.LOGIN, payload: json });
+          setIsLoading(false);
+        }
       })
       .catch((error) => {
-        console.log(error.response);
         setError(error.response.data);
         setIsLoading(false);
       });

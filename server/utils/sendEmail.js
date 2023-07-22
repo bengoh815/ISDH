@@ -18,9 +18,8 @@ module.exports = async (recipient, subject, text) => {
 
   transporter.sendMail(option, function (error, info) {
     if (error) {
-      console.log(error, "Nodemail error");
-    } else {
-      console.log("Mail sent", info);
+      throw new Error(`${error.name} SMTP: ${error.data}`);
     }
+    return info;
   });
 };

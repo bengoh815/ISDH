@@ -48,7 +48,7 @@ export default function DocDel({ doc }) {
     const url = `http://localhost:8000/api/doc/delete/${doc._id}`;
     const config = {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${user.jwtToken}`,
       },
       data: {
         doc,
