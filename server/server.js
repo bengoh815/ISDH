@@ -24,7 +24,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/doc", docRoutes);
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI, { ssl: true })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Listening on port ${PORT}`);

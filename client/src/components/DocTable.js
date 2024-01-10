@@ -16,8 +16,6 @@ import {
 import {
   KeyboardArrowDown,
   KeyboardArrowUp,
-  KeyboardDoubleArrowDown,
-  KeyboardDoubleArrowUp,
 } from "@mui/icons-material";
 
 // components
@@ -27,41 +25,74 @@ import DocRow from "./DocRow";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useDocContext } from "../hooks/useDocContext";
 import { DOC_ACTIONS } from "../context/DocContext";
+import { DOC_STATUS } from "../components/DocStatus";
 
 export default function DocumentTable() {
   const { docs, dispatch } = useDocContext();
   const { user } = useAuthContext();
 
-  const [sortState, setSortState] = useState(0);
-  const handleClickSort = () => {
-    switch (sortState + 1) {
-      case 1:
-        dispatch({ type: DOC_ACTIONS.DATE_SORT_DES });
-        break;
-      case 2:
-        dispatch({ type: DOC_ACTIONS.DATE_SORT_ASC_NULL });
-        break;
-      case 3:
-        dispatch({ type: DOC_ACTIONS.DATE_SORT_DES_NULL });
-        break;
-      default:
-        dispatch({ type: DOC_ACTIONS.DATE_SORT_ASC });
-        break;
-    }
-    setSortState(sortState + 1 >= 4 ? 0 : sortState + 1);
-  };
-  const icon = (s) => {
+  const binaryIcon = (s) => {
     switch (s) {
       case 1:
         return <KeyboardArrowDown />;
-      case 2:
-        return <KeyboardDoubleArrowUp />;
-      case 3:
-        return <KeyboardDoubleArrowDown />;
       default:
         return <KeyboardArrowUp />;
     }
   };
+
+  const [sortState, setSortState] = useState(0);
+  const handleClickSort = () => {
+    switch (sortState + 1) {
+      case 1:
+        dispatch({ type: DOC_ACTIONS.SORT_DATE_DES_NULL });
+        break;
+      default:
+        dispatch({ type: DOC_ACTIONS.SORT_DATE_ASC_NULL });
+        break;
+    }
+    setSortState(sortState + 1 >= 2 ? 0 : sortState + 1);
+  };
+
+  const [filterState, setFilterState] = useState(0);
+  const handleClickFilter = () => {
+    setFilterState(filterState + 1 >= 5 ? 0 : filterState + 1);
+  };
+
+  const filterDocuments = (docs, filterState) => {
+
+    switch (filterState) {
+      // FILTER
+      case 1:
+        return docs.map((d) => {
+          d.status === DOC_STATUS.OKAY ? d.display = 1 : d.display = 0;
+          return d;
+        });
+      case 2:
+        return docs.map((d) => {
+          d.status === DOC_STATUS.ONGOING ? d.display = 1 : d.display = 0;
+          return d;
+        });
+      case 3:
+        return docs.map((d) => {
+          d.status === DOC_STATUS.EXPIRING ? d.display = 1 : d.display = 0;
+          return d;
+        });
+      case 4:
+        return docs.map((d) => {
+          d.status === DOC_STATUS.EXPIRED ? d.display = 1 : d.display = 0;
+          return d;
+        });
+      case 5:
+        // DOC_ACTIONS.FILTER_USER
+        break;
+      default:
+        // DOC_ACTIONS.FILTER_NULL
+        return docs.map(d => {
+          d.display = 1;
+          return d;
+        });
+    }
+  }
 
   useEffect(() => {
     const getDocs = async () => {
@@ -96,17 +127,28 @@ export default function DocumentTable() {
                   disableRipple
                   sx={{ padding: 0, textTransform: "none" }}
                   onClick={handleClickSort}
-                  endIcon={icon(sortState)}
+                  endIcon={binaryIcon(sortState)}
                 >
                   Expiry Date
                 </Button>
               </TableCell>
-              <TableCell sx={{ minWidth: "85px" }}>Status</TableCell>
+              <TableCell sx={{ minWidth: "85px" }}>
+                <Button
+                    disableElevation
+                    disableRipple
+                    sx={{ padding: 0, textTransform: "none" }}
+                    onClick={handleClickFilter}
+                    endIcon={binaryIcon(filterState)}
+                  >
+                  Status
+                </Button>
+              </TableCell>
               <TableCell>Options</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {docs && docs.map((doc) => <DocRow key={doc._id} doc={doc} />)}
+            {docs && filterDocuments(docs, filterState).filter((d) => d.display === 1)
+              .map((doc) => <DocRow key={doc._id} doc={doc} />)}
           </TableBody>
         </Table>
       </TableContainer>
