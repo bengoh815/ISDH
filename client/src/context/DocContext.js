@@ -8,7 +8,7 @@ export const DOC_ACTIONS = {
   CREATE_DOC: "CREATE_DOCUMENTS",
   UPDATE_DOC: "UPDATE_DOCUMENTS",
   DELETE_DOC: "DELETE_DOCUMENTS",
-  // SORT 
+  // SORT
   // DATE with null values behind
   SORT_DATE_ASC_NULL: "DATE_SORT_ASC_NULL",
   SORT_DATE_DES_NULL: "DATE_SORT_DES_NULL",
@@ -22,7 +22,6 @@ export const DOC_STATUS = {
   EXPIRING: "expiring",
   EXPIRED: "expired",
 };
-
 
 export const docsReducer = (state, action) => {
   switch (action.type) {
@@ -77,9 +76,15 @@ export const docsReducer = (state, action) => {
         }),
       };
     case DOC_ACTIONS.SORT_ALPHABET_ASC:
-      break;
+      return {
+        docs: state.docs.sort((a, b) =>
+          a.name.toString().localeCompare(b.name.toString())
+        ),
+      };
     case DOC_ACTIONS.SORT_ALPHABET_DES:
-      break;
+      return {
+        docs: state.docs.sort((a, b) => a.name.localeCompare(b.name) * -1),
+      };
     default:
       return state;
   }
