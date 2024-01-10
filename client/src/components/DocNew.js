@@ -20,8 +20,8 @@ import { DatePicker } from "@mui/x-date-pickers";
 
 // context
 import { DOC_ACTIONS } from "../context/DocContext";
+import { DOC_STATUS } from "../context/DocContext";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { DOC_STATUS } from "./DocStatus";
 import { useDocContext } from "../hooks/useDocContext";
 
 // components

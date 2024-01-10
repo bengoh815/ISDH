@@ -14,6 +14,11 @@ import {
   TableRow,
 } from "@mui/material";
 import {
+  FilterAlt,
+  Check,
+  Close,
+  WarningAmber,
+  WorkHistory,
   KeyboardArrowDown,
   KeyboardArrowUp,
 } from "@mui/icons-material";
@@ -25,7 +30,7 @@ import DocRow from "./DocRow";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useDocContext } from "../hooks/useDocContext";
 import { DOC_ACTIONS } from "../context/DocContext";
-import { DOC_STATUS } from "../components/DocStatus";
+import { DOC_STATUS } from "../context/DocContext";
 
 export default function DocumentTable() {
   const { docs, dispatch } = useDocContext();
@@ -94,6 +99,21 @@ export default function DocumentTable() {
     }
   }
 
+  const filterIcon = (filterState) => {
+    switch(filterState) {
+      case 1:
+        return <Check/>
+      case 2:
+        return <WorkHistory/>
+      case 3:
+        return <WarningAmber/>
+      case 4:
+        return <Close/>
+      default:
+        return <FilterAlt/>
+    }
+  }
+
   useEffect(() => {
     const getDocs = async () => {
       const config = {
@@ -138,7 +158,7 @@ export default function DocumentTable() {
                     disableRipple
                     sx={{ padding: 0, textTransform: "none" }}
                     onClick={handleClickFilter}
-                    endIcon={binaryIcon(filterState)}
+                    endIcon={filterIcon(filterState)}
                   >
                   Status
                 </Button>

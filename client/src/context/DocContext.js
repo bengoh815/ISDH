@@ -16,6 +16,14 @@ export const DOC_ACTIONS = {
   SORT_ALPHABET_DES: "SORT_ALPHABET_DES",
 };
 
+export const DOC_STATUS = {
+  OKAY: "okay",
+  ONGOING: "ongoing",
+  EXPIRING: "expiring",
+  EXPIRED: "expired",
+};
+
+
 export const docsReducer = (state, action) => {
   switch (action.type) {
     case DOC_ACTIONS.SET_DOC:

@@ -1,12 +1,8 @@
 import { Check, Close, WarningAmber, WorkHistory } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 
-export const DOC_STATUS = {
-  OKAY: "okay",
-  ONGOING: "ongoing",
-  EXPIRING: "expiring",
-  EXPIRED: "expired",
-};
+// hooks
+import { DOC_STATUS } from "../context/DocContext";
 
 export default function DocStatus({ status }) {
   const parseColor = (s) => {
