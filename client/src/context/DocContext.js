@@ -77,13 +77,13 @@ export const docsReducer = (state, action) => {
       };
     case DOC_ACTIONS.SORT_ALPHABET_ASC:
       return {
-        docs: state.docs.sort((a, b) =>
-          a.name.toString().localeCompare(b.name.toString())
-        ),
+        docs: state.docs.sort((a, b) => a.docName.localeCompare(b.docName)),
       };
     case DOC_ACTIONS.SORT_ALPHABET_DES:
       return {
-        docs: state.docs.sort((a, b) => a.name.localeCompare(b.name) * -1),
+        docs: state.docs.sort(
+          (a, b) => a.docName.localeCompare(b.docName) * -1
+        ),
       };
     default:
       return state;

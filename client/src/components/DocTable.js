@@ -67,10 +67,9 @@ export default function DocumentTable() {
       default:
         break;
     }
-    setSortDateState(saveState + 1 >= 2 ? 0 : saveState + 1);
+    setSortDateState(saveState + 1 >= 3 ? 0 : saveState + 1);
   };
   const sortNameIcon = () => {
-    console.log(sortNameState);
     switch (sortNameState) {
       case 1:
         return <KeyboardArrowUp />;
@@ -96,7 +95,7 @@ export default function DocumentTable() {
       default:
         break;
     }
-    setSortDateState(saveState + 1 >= 2 ? 0 : saveState + 1);
+    setSortDateState(saveState + 1 >= 3 ? 0 : saveState + 1);
   };
   const sortDateIcon = () => {
     switch (sortDateState) {
