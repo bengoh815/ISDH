@@ -38,15 +38,6 @@ export default function DocumentTable() {
   const { docs, dispatch } = useDocContext();
   const { user } = useAuthContext();
 
-  const sortIcon = (s) => {
-    switch (s % 2) {
-      case 1:
-        return <KeyboardArrowDown />;
-      default:
-        return <KeyboardArrowUp />;
-    }
-  };
-
   // Sort
   const sortResetDefault = () => {
     setSortNameState(0);
@@ -54,8 +45,8 @@ export default function DocumentTable() {
   };
   const [sortNameState, setSortNameState] = useState(0);
   const handleNameSort = () => {
-    // States, null, asc, dsc
-    const saveState = sortDateState;
+    // States, asc, dsc, null
+    const saveState = sortNameState;
     sortResetDefault();
     switch (saveState + 1) {
       case 1:
@@ -67,7 +58,7 @@ export default function DocumentTable() {
       default:
         break;
     }
-    setSortDateState(saveState + 1 >= 3 ? 0 : saveState + 1);
+    setSortNameState(saveState + 1 >= 2 ? 0 : saveState + 1);
   };
   const sortNameIcon = () => {
     switch (sortNameState) {
@@ -82,35 +73,37 @@ export default function DocumentTable() {
 
   const [sortDateState, setSortDateState] = useState(0);
   const handleDateSort = () => {
-    // States, null, asc, dsc
+    // States, asc, dsc, null
     const saveState = sortDateState;
     sortResetDefault();
     switch (saveState + 1) {
       case 1:
-        dispatch({ type: DOC_ACTIONS.SORT_DATE_ASC_NULL });
-        break;
-      case 2:
         dispatch({ type: DOC_ACTIONS.SORT_DATE_DES_NULL });
         break;
+      case 2:
+        break;
       default:
+        dispatch({ type: DOC_ACTIONS.SORT_DATE_ASC_NULL });
         break;
     }
-    setSortDateState(saveState + 1 >= 3 ? 0 : saveState + 1);
+    console.log(saveState + 1);
+    setSortDateState(saveState + 1 >= 2 ? 0 : saveState + 1);
   };
   const sortDateIcon = () => {
     switch (sortDateState) {
       case 1:
-        return <KeyboardArrowUp />;
-      case 2:
         return <KeyboardArrowDown />;
-      default:
+      case 2:
         return <Sort />;
+      default:
+        return <KeyboardArrowUp />;
     }
   };
 
   // Filter
   const [filterState, setFilterState] = useState(0);
   const handleClickFilter = () => {
+    console.log(filterState + 1);
     setFilterState(filterState + 1 >= 5 ? 0 : filterState + 1);
   };
 
@@ -138,10 +131,13 @@ export default function DocumentTable() {
           return d;
         });
       case 5:
-        // DOC_ACTIONS.FILTER_USER
-        break;
+        // user input and filter
+        return docs.map((d) => {
+          d.docName.includes("") ? (d.display = 1) : (d.display = 0);
+          return d;
+        });
       default:
-        // DOC_ACTIONS.FILTER_NULL
+        // No filter, see everything by default
         return docs.map((d) => {
           d.display = 1;
           return d;

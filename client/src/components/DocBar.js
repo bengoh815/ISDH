@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Stack } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import DocSearch from "./DocSearch";
 import DocNew from "./DocNew";
 
